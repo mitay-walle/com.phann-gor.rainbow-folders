@@ -1,10 +1,9 @@
-# Discontinued
+# Rainbow Folders UPM Package
 
-This project is discontinued and deprecated. Unfortunately, our benefit from the open source project was too low to justify the extra effort to keep it alive.
+- converted to UPM-Package
+- explicit dependency to 'Version Contol' package ("com.unity.collab-proxy")
 
-Meanwhile, development continues and new versions of the Rainbow Folders are now available exclusively on the [Asset Store](http://u3d.as/mor)
-
-Now back to original README content…
+Original package development continues and new versions of the Rainbow Folders are now available exclusively on the [Asset Store](http://u3d.as/mor)
 
 # License
 
@@ -19,7 +18,6 @@ https://creativecommons.org/licenses/by-nc/4.0/
 # Unity3D Rainbow Folders
 
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://raw.githubusercontent.com/PhannGor/unity3d-rainbow-folders/master/LICENSE)
-
 
 Have you ever thought about highlighting often used project folders? This simple but colorful asset allows you to do that!
 
