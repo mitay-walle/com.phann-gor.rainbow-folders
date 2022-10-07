@@ -33,7 +33,6 @@ namespace Borodar.RainbowFolders.Editor
     public class RainbowFoldersBrowserIcons
     {
         private const float LARGE_ICON_SIZE = 64f;
-
         private static Func<bool> _isCollabEnabled;
         private static Func<bool> _isVcsEnabled;
         private static ProjectWindowItemCallback _drawCollabOverlay;
@@ -58,6 +57,7 @@ namespace Borodar.RainbowFolders.Editor
         //---------------------------------------------------------------------
         // Delegates
         //---------------------------------------------------------------------
+        public delegate void ProjectWindowItemCallback(string guid, Rect selectionRect,Action action);
 
         private static void ReplaceFolderIcon(string guid, Rect rect)
         {
@@ -123,23 +123,23 @@ namespace Borodar.RainbowFolders.Editor
 
         private static void InitVcsDelegates(Assembly assembly)
         {
-            try
-            {
+            //try
+            { 
                 _isVcsEnabled = () => Provider.isActive;
 
-                var vcsHookType = assembly.GetType("UnityEditorInternal.VersionControl.ProjectHooks");
-                var vcsHook = vcsHookType.GetMethod("OnProjectWindowItem", BindingFlags.Static | BindingFlags.Public);
+                Type vcsHookType = assembly.GetType("UnityEditorInternal.VersionControl.ProjectHooks");
+                MethodInfo vcsHook = vcsHookType.GetMethod("OnProjectWindowItem", BindingFlags.Static | BindingFlags.Public);
                 _drawVcsOverlay = (ProjectWindowItemCallback) Delegate.CreateDelegate(typeof(ProjectWindowItemCallback), vcsHook);
             }
-            catch (SystemException ex)
-            {
-                if (!(ex is NullReferenceException) && !(ex is ArgumentNullException)) throw;
-                _isVcsEnabled = () => false;
-
-                #if RAINBOW_FOLDERS_DEVEL
-                    Debug.LogException(ex);
-                #endif
-            }
+            // catch (SystemException ex)
+            // {
+            //     if (!(ex is NullReferenceException) && !(ex is ArgumentNullException)) throw;
+            //     _isVcsEnabled = () => false;
+            //
+            //     #if RAINBOW_FOLDERS_DEVEL
+            //         Debug.LogException(ex);
+            //     #endif
+            // }
         }
 
         private static void InitCollabDelegates(Assembly assembly)
@@ -211,13 +211,13 @@ namespace Borodar.RainbowFolders.Editor
                 var background = RainbowFoldersEditorUtility.GetCollabBackground(isSmall, EditorGUIUtility.isProSkin);
                 GUI.DrawTexture(rect, background);
                 GUI.DrawTexture(rect, texture);
-                _drawCollabOverlay(guid, rect);
+                _drawCollabOverlay(guid, rect,null);
             }
             else if (_isVcsEnabled())
             {
                 var iconRect = (!isSmall) ? rect : new Rect(rect.x + 7, rect.y, rect.width, rect.height);
                 GUI.DrawTexture(iconRect, texture);
-                _drawVcsOverlay(guid, rect);
+                _drawVcsOverlay(guid, rect,null);
             }
             else
             {
