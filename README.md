@@ -1,6 +1,6 @@
 # Rainbow Folders UPM Package
 
-- converted to UPM-Package
+- converted to UPM-Package (Install [by Git URL](https://docs.unity3d.com/Manual/upm-ui-giturl.html))
 - explicit dependency to 'Version Contol' package ("com.unity.collab-proxy")
 
 Original package development continues and new versions of the Rainbow Folders are now available exclusively on the [Asset Store](http://u3d.as/mor)
